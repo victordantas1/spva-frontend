@@ -1,0 +1,40 @@
+<main class="job-wrapper" *ngIf="job">
+  <section class="job-header">
+    <h1>{{ job.position }}</h1>
+    <div class="job-meta">
+      <span>📍 {{ job.location }}</span>
+      <span>🏢 {{ job.company || 'Vct Inc.' }}</span>
+    </div>
+  </section>
+
+  <section class="job-body">
+    <div class="job-description">
+      <h2>Descrição da Vaga</h2>
+      <p>{{ job.description }}</p>
+
+      <div class="columns">
+        <div>
+          <h3>Responsabilidades:</h3>
+          <p>{{job.responsibilities}}</p>
+        </div>
+        <div>
+          <h3>Requisitos:</h3>
+          <p>{{job.requirements}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="job-info">
+      <h3>Informações do Cargo</h3>
+      <ul>
+        <li>📌 {{ job.level || 'Pleno' }}</li>
+        <li>⚡ {{ job.contractType || 'CLT ou PJ' }}</li>
+        <li>🕒 {{ job.schedule || 'Flexível' }}</li>
+        <li>💰 {{ job.salaryRange || 'R$8.000 a R$2.000' }}</li>
+      </ul>
+
+      <p>Preencha seu currículo e junte-se ao nosso time!</p>
+      <button class="apply-btn">Candidatar-se Agora</button>
+    </div>
+  </section>
+</main>

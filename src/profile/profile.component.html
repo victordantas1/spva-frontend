@@ -1,0 +1,48 @@
+<div class="profile-container">
+  <h2>Candidate Profile</h2>
+
+  <form [formGroup]="profileForm" (ngSubmit)="saveChanges()">
+
+    <fieldset>
+      <legend>Personal Information</legend>
+      <div class="grid">
+        <input type="text" placeholder="Full name" formControlName="fullName">
+        <input type="email" placeholder="Email" formControlName="email">
+        <input type="text" placeholder="Phone" formControlName="phone">
+        <input type="text" placeholder="GitHub" formControlName="github">
+        <input type="text" placeholder="LinkedIn" formControlName="linkedin">
+        <input type="text" placeholder="Portfolio" formControlName="portfolio">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Address</legend>
+      <div class="grid">
+        <input type="text" placeholder="City" formControlName="city">
+        <input type="text" placeholder="State" formControlName="state">
+        <input type="text" placeholder="Country" formControlName="country">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Resume</legend>
+      <input type="file" (change)="onFileSelected($event)">
+      <p *ngIf="resumeFile">📄 {{ resumeFile.name }}</p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Work Preferences</legend>
+      <select formControlName="workPreference">
+        <option value="Remote">Remote</option>
+        <option value="Onsite">Onsite</option>
+        <option value="Hybrid">Hybrid</option>
+      </select>
+      <input type="text" placeholder="Interest Area" formControlName="interestArea">
+    </fieldset>
+
+    <div class="buttons">
+      <button type="submit" class="save">Save Changes</button>
+      <button type="button" class="delete" (click)="deleteAccount()">Delete Account</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,19 @@
+<main class="login-wrapper">
+  <section class="login-card">
+    <h1>Login</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" />
+
+      <button type="submit">Log in</button>
+    </form>
+
+    <p class="signup-text">
+      Don’t have an account? <a href="#">Sign Up</a>
+    </p>
+  </section>
+</main>

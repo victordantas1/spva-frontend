@@ -1,0 +1,81 @@
+.job-wrapper {
+  font-family: sans-serif;
+  background: #fff;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.job-header {
+  background-color: #4f46e5;
+  color: white;
+  padding: 2rem;
+  border-radius: 12px 12px 0 0;
+}
+
+.job-header h1 {
+  font-size: 2rem;
+}
+
+.job-meta {
+  margin-top: 1rem;
+  font-size: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.job-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.job-description {
+  flex: 2;
+}
+
+.columns {
+  display: flex;
+  gap: 2rem;
+}
+
+.columns ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.job-info {
+  flex: 1;
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.job-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.job-info li {
+  margin-bottom: 0.5rem;
+}
+
+.apply-btn {
+  display: inline-block;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.apply-btn:hover {
+  background-color: #6366f1;
+}

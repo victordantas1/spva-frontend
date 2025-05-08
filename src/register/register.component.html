@@ -1,0 +1,26 @@
+<div class="container">
+  <form (ngSubmit)="createAccount()" class="form">
+    <h2>Create your account</h2>
+    <div class="row">
+      <div>
+        <label class="first-name">First Name</label>
+        <input [(ngModel)]="firstName" name="firstName" required />
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input [(ngModel)]="lastName" name="lastName" required />
+      </div>
+    </div>
+
+    <label>Email</label>
+    <input [(ngModel)]="email" name="email" type="email" required />
+
+    <label>Password</label>
+    <div class="password-wrapper">
+      <input [(ngModel)]="password" name="password" [type]="showPassword ? 'text' : 'password'" required />
+      <button type="button" (click)="showPassword = !showPassword">👁️</button>
+    </div>
+
+    <button type="submit" class="submit">Create account</button>
+  </form>
+</div>
