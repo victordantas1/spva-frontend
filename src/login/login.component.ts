@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {ReactiveFormsModule, FormBuilder, Validators, FormGroup} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,38 @@ import {ReactiveFormsModule, FormBuilder, Validators, FormGroup} from '@angular/
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', Validators.required]
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Login data:', this.loginForm.value);
+      const formValue = this.loginForm.value;
+
+      const body = new HttpParams()
+        .set('username', formValue.username)
+        .set('password', formValue.password);
+
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+
+      this.http.post<{ access_token: string, token_type: string }>(
+        'http://localhost:8000/auth/login',
+        body.toString(),
+        { headers }
+      ).subscribe({
+        next: (response) => {
+          document.cookie = `token=${response.access_token}; path=/; max-age=86400`;
+          console.log('Login realizado com sucesso!');
+        },
+        error: (err) => {
+          console.error('Erro ao fazer login:', err);
+        }
+      });
     } else {
       this.loginForm.markAllAsTouched();
     }

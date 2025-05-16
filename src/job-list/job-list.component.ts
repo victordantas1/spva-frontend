@@ -20,15 +20,27 @@ export class JobListComponent {
   }
 
   fetchJobs() {
-    this.http.get<any[]>('http://localhost:8000/jobs')
+    const token = this.getTokenFromCookies();
+
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+    // @ts-ignore
+    this.http.get<any[]>('http://localhost:8000/jobs', { headers, responseType: 'json' })
       .subscribe({
         next: (data) => {
+          // @ts-ignore
           this.jobs = data;
         },
         error: (error) => {
           console.error('Erro ao buscar os jobs:', error);
         }
       });
+  }
+
+// Função auxiliar para extrair o token do cookie
+  private getTokenFromCookies(): string | null {
+    const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
+    return match ? match[2] : null;
   }
 
   goToJobDetails(jobId: number) {
