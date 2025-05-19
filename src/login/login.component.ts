@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  private router = inject(Router);
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.loginForm = this.fb.group({
@@ -39,6 +41,7 @@ export class LoginComponent {
         next: (response) => {
           document.cookie = `token=${response.access_token}; path=/; max-age=86400`;
           console.log('Login realizado com sucesso!');
+          this.router.navigate(['/jobs']);
         },
         error: (err) => {
           console.error('Erro ao fazer login:', err);
