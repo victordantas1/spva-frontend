@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   standalone: true,
@@ -16,7 +17,7 @@ export class RegisterComponent {
   email = '';
   password = '';
   showPassword = false;
-
+  private router = inject(Router);
   constructor(private http: HttpClient) {}
 
   createAccount() {
@@ -29,7 +30,10 @@ export class RegisterComponent {
 
     this.http.post('http://localhost:8000/users', user)
       .subscribe({
-        next: (response) => console.log('User created:', response),
+        next: (response) => {
+          console.log('User created:', response)
+          this.router.navigate(['/login']);
+        },
         error: (error) => console.error('Error creating user:', error)
       });
   }

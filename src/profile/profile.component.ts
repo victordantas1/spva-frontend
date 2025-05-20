@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -16,7 +16,7 @@ import { NgIf } from '@angular/common';
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   resumeFile: File | null = null;
-  userId = 1; // Supondo ID do usuário logado
+  userId = 14; // Supondo ID do usuário logado
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.profileForm = this.fb.group({
@@ -39,20 +39,20 @@ export class ProfileComponent implements OnInit {
   }
 
   loadUserData(): void {
-    this.http.get<any>(`http://localhost:8000/users/${this.userId}`)
+
+    interface UserResponse {
+      first_name: string;
+      last_name: string;
+      email: string;
+      // adicione os campos necessários
+    }
+
+    this.http.get<UserResponse>(`http://localhost:8000/users/${this.userId}`)
       .subscribe(user => {
         this.profileForm.patchValue({
           fullName: `${user.first_name} ${user.last_name}`,
           email: user.email,
-          phone: user.phone || '',
-          github: user.github || '',
-          linkedin: user.linkedin || '',
-          portfolio: user.portfolio || '',
-          city: user.city || '',
-          state: user.state || '',
-          country: user.country || '',
-          workPreference: user.work_preference || 'Remote',
-          interestArea: user.interest_area || ''
+          // outros campos
         });
       });
   }
@@ -119,5 +119,10 @@ export class ProfileComponent implements OnInit {
           // redirect or logout
         });
     }
+  }
+
+  private getTokenFromCookies(): string | null {
+    const match = document.cookie.match(new RegExp('(^| )token=([^;]+)'));
+    return match ? match[2] : null;
   }
 }

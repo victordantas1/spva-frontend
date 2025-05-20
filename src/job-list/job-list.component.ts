@@ -47,4 +47,17 @@ export class JobListComponent {
     this.router.navigate([`/job-details/${jobId}`]);
   }
 
+  getUserId() {
+    return 14;
+  }
+
+  goToProfile() {
+    const userId = this.getUserId();
+    if (userId) {
+      this.router.navigate([`/profile/${userId}`]);
+    } else {
+      console.warn('ID do usuário não encontrado no token.');
+    }
+  }
+
 }
