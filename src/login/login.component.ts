@@ -40,6 +40,7 @@ export class LoginComponent {
       ).subscribe({
         next: (response) => {
           document.cookie = `token=${response.access_token}; path=/; max-age=86400`;
+          localStorage.setItem('token', response.access_token);
           console.log('Login realizado com sucesso!');
           this.router.navigate(['/jobs']);
         },

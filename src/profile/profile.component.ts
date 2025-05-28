@@ -16,7 +16,7 @@ import { NgIf } from '@angular/common';
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   resumeFile: File | null = null;
-  userId = 14; // Supondo ID do usuário logado
+  userId: number;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.profileForm = this.fb.group({
@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
       workPreference: ['Remote', Validators.required],
       interestArea: ['']
     });
+    this.userId = 0
   }
 
   ngOnInit(): void {
@@ -41,14 +42,16 @@ export class ProfileComponent implements OnInit {
   loadUserData(): void {
 
     interface UserResponse {
+      user_id: number;
       first_name: string;
       last_name: string;
       email: string;
       // adicione os campos necessários
     }
 
-    this.http.get<UserResponse>(`http://localhost:8000/users/${this.userId}`)
+    this.http.get<UserResponse>(`http://localhost:8000/users/me`)
       .subscribe(user => {
+        this.userId = user.user_id
         this.profileForm.patchValue({
           fullName: `${user.first_name} ${user.last_name}`,
           email: user.email,
