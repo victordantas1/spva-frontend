@@ -1,48 +1,89 @@
 <div class="profile-container">
-  <h2>Candidate Profile</h2>
+  <header class="profile-header">
+    <h2>Candidate Profile</h2>
+  </header>
 
-  <form [formGroup]="profileForm" (ngSubmit)="saveChanges()">
+  <form [formGroup]="profileForm" (ngSubmit)="saveChanges()" class="profile-form">
 
     <fieldset>
       <legend>Personal Information</legend>
-      <div class="grid">
-        <input type="text" placeholder="Full name" formControlName="fullName">
-        <input type="email" placeholder="Email" formControlName="email">
-        <input type="text" placeholder="Phone" formControlName="phone">
-        <input type="text" placeholder="GitHub" formControlName="github">
-        <input type="text" placeholder="LinkedIn" formControlName="linkedin">
-        <input type="text" placeholder="Portfolio" formControlName="portfolio">
+      <div class="form-grid">
+        <div class="form-field full-width">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" type="text" placeholder="Enter your full name" formControlName="fullName">
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="your.email@example.com" formControlName="email">
+        </div>
+        <div class="form-field">
+          <label for="phone">Phone</label>
+          <input id="phone" type="text" placeholder="Your phone number" formControlName="phone">
+        </div>
+        <div class="form-field">
+          <label for="github">GitHub</label>
+          <input id="github" type="text" placeholder="github.com/your-profile" formControlName="github">
+        </div>
+        <div class="form-field">
+          <label for="linkedin">LinkedIn</label>
+          <input id="linkedin" type="text" placeholder="linkedin.com/in/your-profile" formControlName="linkedin">
+        </div>
+        <div class="form-field full-width">
+          <label for="portfolio">Portfolio</label>
+          <input id="portfolio" type="text" placeholder="your-portfolio.com" formControlName="portfolio">
+        </div>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>Address</legend>
-      <div class="grid">
-        <input type="text" placeholder="City" formControlName="city">
-        <input type="text" placeholder="State" formControlName="state">
-        <input type="text" placeholder="Country" formControlName="country">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="city">City</label>
+          <input id="city" type="text" formControlName="city">
+        </div>
+        <div class="form-field">
+          <label for="state">State</label>
+          <input id="state" type="text" formControlName="state">
+        </div>
+        <div class="form-field full-width">
+          <label for="country">Country</label>
+          <input id="country" type="text" formControlName="country">
+        </div>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>Resume</legend>
-      <input type="file" (change)="onFileSelected($event)">
-      <p *ngIf="resumeFile">📄 {{ resumeFile.name }}</p>
+      <div class="file-upload">
+        <label for="resume" class="file-label">Choose File</label>
+        <input id="resume" type="file" (change)="onFileSelected($event)">
+        <span class="file-name" *ngIf="resumeFile">{{ resumeFile.name }}</span>
+        <span class="file-name" *ngIf="!resumeFile">No file chosen</span>
+      </div>
     </fieldset>
 
     <fieldset>
       <legend>Work Preferences</legend>
-      <select formControlName="workPreference">
-        <option value="Remote">Remote</option>
-        <option value="Onsite">Onsite</option>
-        <option value="Hybrid">Hybrid</option>
-      </select>
-      <input type="text" placeholder="Interest Area" formControlName="interestArea">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="workPreference">Preference</label>
+          <select id="workPreference" formControlName="workPreference">
+            <option value="Remote">Remote</option>
+            <option value="Onsite">On-site</option>
+            <option value="Hybrid">Hybrid</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="interestArea">Interest Area</label>
+          <input id="interestArea" type="text" placeholder="e.g., Backend Development" formControlName="interestArea">
+        </div>
+      </div>
     </fieldset>
 
-    <div class="buttons">
-      <button type="submit" class="save">Save Changes</button>
-      <button type="button" class="delete" (click)="deleteAccount()">Delete Account</button>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="button" class="btn btn-danger" (click)="deleteAccount()">Delete Account</button>
     </div>
   </form>
 </div>
