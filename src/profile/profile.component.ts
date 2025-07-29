@@ -64,6 +64,7 @@ export class ProfileComponent implements OnInit {
     // A requisição para /users/me deve retornar os dados do usuário logado
     this.http.get<UserPayload>(`http://localhost:8000/users/me`)
       .subscribe(user => {
+        this.userId = user.user_id;
         this.profileForm.patchValue({
           fullName: `${user.first_name} ${user.last_name}`,
           email: user.email,
@@ -76,7 +77,7 @@ export class ProfileComponent implements OnInit {
           country: user.country,
           workPreference: this.getWorkPreferenceDisplayValue(user.work_preference),
           interestArea: user.interest_area,
-        });
+        })
       });
   }
 
@@ -98,7 +99,10 @@ export class ProfileComponent implements OnInit {
     const firstName = fullNameParts.shift() || '';
     const lastName = fullNameParts.join(' ');
 
+
     const userData: UserPayload = {
+      // @ts-ignore
+      user_id: this.userId,
       first_name: firstName,
       last_name: lastName,
       email: this.profileForm.value.email,
@@ -112,7 +116,7 @@ export class ProfileComponent implements OnInit {
       work_preference: this.getWorkPreferenceApiValue(this.profileForm.value.workPreference),
       interest_area: this.profileForm.value.interestArea,
     };
-
+    console.log(this.userId)
     if (this.userId) {
       this.http.put(`http://localhost:8000/users/${this.userId}`, userData)
         .subscribe(response => {
