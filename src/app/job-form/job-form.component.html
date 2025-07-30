@@ -1,0 +1,78 @@
+<div class="form-container">
+  <button type="button" class="back-btn" title="Voltar" (click)="goBack()">‹</button>
+
+  <h1>{{ isEditMode ? 'Editar Vaga' : 'Criar Nova Vaga' }}</h1>
+
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+
+      <div class="form-field full-width">
+        <label for="title">Título Principal da Vaga*</label>
+        <input id="title" type="text" formControlName="title" placeholder="Ex: Desenvolvedor(a) de Software (Backend)">
+      </div>
+
+      <div class="form-field">
+        <label for="position">Cargo*</label>
+        <input id="position" type="text" formControlName="position" placeholder="Ex: Desenvolvedor, Analista">
+      </div>
+
+      <div class="form-field">
+        <label for="company">Empresa</label>
+        <input id="company" type="text" formControlName="company" placeholder="Nome da empresa">
+      </div>
+
+      <div class="form-field">
+        <label for="location">Localização</label>
+        <input id="location" type="text" formControlName="location" placeholder="Ex: São Paulo, SP ou Remoto">
+      </div>
+
+      <div class="form-field">
+        <label for="category">Modalidade*</label>
+        <select id="category" formControlName="category">
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category | titlecase }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="level">Nível</label>
+        <input id="level" type="text" formControlName="level" placeholder="Ex: Júnior, Pleno, Sênior">
+      </div>
+
+      <div class="form-field">
+        <label for="contract_type">Tipo de Contrato</label>
+        <input id="contract_type" type="text" formControlName="contract_type" placeholder="Ex: CLT, PJ">
+      </div>
+
+      <div class="form-field">
+        <label for="schedule">Jornada</label>
+        <input id="schedule" type="text" formControlName="schedule" placeholder="Ex: 40h semanais, Horário Flexível">
+      </div>
+
+      <div class="form-field">
+        <label for="salary_range">Faixa Salarial</label>
+        <input id="salary_range" type="text" formControlName="salary_range" placeholder="Ex: R$ 5.000 a R$ 8.000">
+      </div>
+
+      <div class="form-field full-width">
+        <label for="description">Descrição*</label>
+        <textarea id="description" formControlName="description" rows="4"></textarea>
+      </div>
+
+      <div class="form-field full-width">
+        <label for="responsibilities">Responsabilidades</label>
+        <textarea id="responsibilities" formControlName="responsibilities" rows="4"></textarea>
+      </div>
+
+      <div class="form-field full-width">
+        <label for="requirements">Requisitos</label>
+        <textarea id="requirements" formControlName="requirements" rows="4"></textarea>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="jobForm.invalid">
+      {{ isEditMode ? 'Salvar Alterações' : 'Criar Vaga' }}
+    </button>
+  </form>
+</div>
