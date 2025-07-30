@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
 import { UserPayload } from './user-payload';
-import { Location } from '@angular/common'; // ✅ Importe o Location
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +20,6 @@ export class ProfileComponent implements OnInit {
   resumeFile: File | null = null;
   userId: number | null = null;
 
-  // ✅ Injete o Location no construtor
   constructor(private fb: FormBuilder, private http: HttpClient, private location: Location) {
     this.profileForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -41,14 +40,10 @@ export class ProfileComponent implements OnInit {
     this.loadUserData();
   }
 
-  // ✅ Novo método para voltar para a página anterior
   goBack(): void {
     this.location.back();
   }
 
-  // ... (o restante do seu código .ts continua o mesmo) ...
-
-  // Mapeia o valor do formulário para o valor da API
   getWorkPreferenceApiValue = (preference: string): 'remote' | 'on-site' | 'hybrid' | null => {
     const preferenceMap: { [key: string]: 'remote' | 'on-site' | 'hybrid' } = {
       'Remote': 'remote',
@@ -58,7 +53,6 @@ export class ProfileComponent implements OnInit {
     return preferenceMap[preference] || null;
   };
 
-  // Mapeia o valor da API para o valor de exibição no formulário
   getWorkPreferenceDisplayValue = (value: "remote" | "on-site" | "hybrid" | null | undefined): string | null => {
     if (!value) return null;
     const displayMap: { [key: string]: string } = {
@@ -70,7 +64,6 @@ export class ProfileComponent implements OnInit {
   };
 
   loadUserData(): void {
-    // A requisição para /users/me deve retornar os dados do usuário logado
     this.http.get<UserPayload>(`http://localhost:8000/users/me`)
       .subscribe(user => {
         this.userId = user.user_id;
@@ -94,7 +87,6 @@ export class ProfileComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       this.resumeFile = input.files[0];
-      // Opcional: mostrar o nome do arquivo no formulário
     }
   }
 
