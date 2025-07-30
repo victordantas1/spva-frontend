@@ -1,9 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 
-// ✅ Interface 'Job' atualizada com todos os atributos do novo template
 export interface Job {
   id: number;
   position: string;
@@ -29,16 +28,20 @@ export class JobDetailComponent implements OnInit {
   job: Job | null = null;
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
+  private location = inject(Location);
 
   ngOnInit(): void {
     const jobId = this.route.snapshot.paramMap.get('id');
     if (jobId) {
-      // A requisição GET agora espera o novo formato do objeto Job
       this.http.get<Job>(`http://localhost:8000/jobs/${jobId}`)
         .subscribe(data => {
           this.job = data;
         });
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   applyToJob(): void {

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
-import { UserPayload } from './user-payload'; // Importando a interface
+import { UserPayload } from './user-payload';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,7 @@ export class ProfileComponent implements OnInit {
   resumeFile: File | null = null;
   userId: number | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private location: Location) {
     this.profileForm = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -39,7 +40,10 @@ export class ProfileComponent implements OnInit {
     this.loadUserData();
   }
 
-  // Mapeia o valor do formulário para o valor da API
+  goBack(): void {
+    this.location.back();
+  }
+
   getWorkPreferenceApiValue = (preference: string): 'remote' | 'on-site' | 'hybrid' | null => {
     const preferenceMap: { [key: string]: 'remote' | 'on-site' | 'hybrid' } = {
       'Remote': 'remote',
@@ -49,7 +53,6 @@ export class ProfileComponent implements OnInit {
     return preferenceMap[preference] || null;
   };
 
-  // Mapeia o valor da API para o valor de exibição no formulário
   getWorkPreferenceDisplayValue = (value: "remote" | "on-site" | "hybrid" | null | undefined): string | null => {
     if (!value) return null;
     const displayMap: { [key: string]: string } = {
@@ -61,7 +64,6 @@ export class ProfileComponent implements OnInit {
   };
 
   loadUserData(): void {
-    // A requisição para /users/me deve retornar os dados do usuário logado
     this.http.get<UserPayload>(`http://localhost:8000/users/me`)
       .subscribe(user => {
         this.userId = user.user_id;
@@ -85,7 +87,6 @@ export class ProfileComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       this.resumeFile = input.files[0];
-      // Opcional: mostrar o nome do arquivo no formulário
     }
   }
 

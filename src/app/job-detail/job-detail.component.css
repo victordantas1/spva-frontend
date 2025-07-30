@@ -79,3 +79,19 @@
 .apply-btn:hover {
   background-color: #6366f1;
 }
+
+.back-btn {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
