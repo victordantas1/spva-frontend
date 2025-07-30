@@ -1,4 +1,6 @@
 <main class="job-wrapper" *ngIf="job">
+  <button class="back-btn" (click)="goBack()">← Voltar para a lista</button>
+
   <section class="job-header">
     <h1>{{ job.position }}</h1>
     <div class="job-meta">
@@ -34,7 +36,7 @@
       </ul>
 
       <p>Preencha seu currículo e junte-se ao nosso time!</p>
-      <button class="apply-button" (click)="applyToJob()">Candidatar-se</button>
+      <button class="apply-btn" (click)="applyToJob()">Candidatar-se</button>
     </div>
   </section>
 </main>
