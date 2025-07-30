@@ -1,14 +1,20 @@
-import {Component, inject} from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Router} from '@angular/router';
+import { Component, inject } from '@angular/core';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+  FormGroup,
+} from '@angular/forms';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -17,11 +23,11 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.loginForm.valid) {
       const formValue = this.loginForm.value;
 
@@ -30,24 +36,25 @@ export class LoginComponent {
         .set('password', formValue.password);
 
       const headers = new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
       });
 
-      this.http.post<{ access_token: string, token_type: string }>(
-        'http://localhost:8000/auth/login',
-        body.toString(),
-        { headers }
-      ).subscribe({
-        next: (response) => {
-          document.cookie = `token=${response.access_token}; path=/; max-age=86400`;
-          localStorage.setItem('token', response.access_token);
-          console.log('Login realizado com sucesso!');
-          this.router.navigate(['/jobs']);
-        },
-        error: (err) => {
-          console.error('Erro ao fazer login:', err);
-        }
-      });
+      try {
+        const response = await lastValueFrom(
+          this.http.post<{ access_token: string; token_type: string }>(
+            'http://localhost:8000/auth/login',
+            body.toString(),
+            { headers }
+          )
+        );
+
+        document.cookie = `token=${response.access_token}; path=/; max-age=86400`;
+        localStorage.setItem('token', response.access_token);
+        console.log('Login realizado com sucesso!');
+        this.router.navigate(['/jobs']);
+      } catch (err) {
+        console.error('Erro ao fazer login:', err);
+      }
     } else {
       this.loginForm.markAllAsTouched();
     }
@@ -56,5 +63,4 @@ export class LoginComponent {
   goToRegister() {
     this.router.navigate(['/register']);
   }
-
 }
