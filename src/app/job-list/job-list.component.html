@@ -1,0 +1,42 @@
+<body class="bg-light">
+<main class="job-container">
+  <header class="header">
+    <div class="container header-toolbar">
+      <h1>Job Opportunities</h1>
+      <button class="create-btn" *ngIf="isAdmin" (click)="createNewJob()">+ Criar Vaga</button>
+      <button class="profile-btn" (click)="goToProfile()">My Profile</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="job-grid">
+      @for (job of jobs; track job.job_id) {
+        <div class="job-card-wrapper">
+          <div class="admin-actions" *ngIf="isAdmin">
+            <button class="edit-btn" title="Editar Vaga" (click)="goToEditJob(job.job_id, $event)">
+              ✏️
+            </button>
+            <button class="delete-btn" title="Deletar Vaga" (click)="deleteJob(job.job_id, $event)">
+              &times;
+            </button>
+          </div>
+
+          <div class="job-card" (click)="goToJobDetails(job.job_id)">
+            <h2 class="job-title">{{ job.position }}</h2>
+            <p class="company-name">Vct Inc.</p>
+            <p class="job-type">Technology</p>
+            <p class="location">📍 {{ job.category.toUpperCase() }}</p>
+            <div class="btn-wrapper">
+              <button class="apply-btn">Apply Now</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+
+  <footer class="footer">
+    © 2025 Job Board Inc. All rights reserved.
+  </footer>
+</main>
+</body>

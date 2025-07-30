@@ -1,16 +1,16 @@
 :host {
-  display: block; /* Alterado para block para um fluxo de layout padrão */
+  display: block;
   width: 100%;
   padding: 2rem;
   background-color: #f4f7f6;
   font-family: 'Inter', sans-serif;
-  box-sizing: border-box; /* Garante que o padding não cause overflow */
+  box-sizing: border-box;
 }
 
 .profile-container {
   width: 100%;
   max-width: 700px;
-  margin: 0 auto; /* Centraliza o container horizontalmente */
+  margin: 0 auto;
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
@@ -82,7 +82,7 @@ select {
   background-color: #f9fafb;
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
-  box-sizing: border-box; /* Adicionado para consistência */
+  box-sizing: border-box;
 }
 
 input[type="text"]:focus,
