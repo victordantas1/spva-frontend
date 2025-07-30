@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
-import { UserPayload } from './user-payload'; // Importando a interface
+import { UserPayload } from './user-payload';
+import { Location } from '@angular/common'; // ✅ Importe o Location
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,8 @@ export class ProfileComponent implements OnInit {
   resumeFile: File | null = null;
   userId: number | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  // ✅ Injete o Location no construtor
+  constructor(private fb: FormBuilder, private http: HttpClient, private location: Location) {
     this.profileForm = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -38,6 +40,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserData();
   }
+
+  // ✅ Novo método para voltar para a página anterior
+  goBack(): void {
+    this.location.back();
+  }
+
+  // ... (o restante do seu código .ts continua o mesmo) ...
 
   // Mapeia o valor do formulário para o valor da API
   getWorkPreferenceApiValue = (preference: string): 'remote' | 'on-site' | 'hybrid' | null => {
