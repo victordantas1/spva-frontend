@@ -21,6 +21,13 @@
       <button type="button" (click)="showPassword = !showPassword">👁️</button>
     </div>
 
+    <label>Resume (PDF)</label>
+    <div class="file-upload">
+      <input type="file" id="resume" (change)="onFileSelected($event)" accept=".pdf" required />
+      <label for="resume" class="file-label">Choose File</label>
+      <span class="file-name">{{ resumeFile?.name || 'No file chosen...' }}</span>
+    </div>
+
     <button type="submit" class="submit">Create account</button>
   </form>
 </div>
