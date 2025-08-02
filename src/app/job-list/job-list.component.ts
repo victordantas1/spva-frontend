@@ -5,6 +5,7 @@ import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-job-list',
+  standalone: true,
   imports: [
     NgIf
   ],
@@ -82,7 +83,7 @@ export class JobListComponent {
   }
 
   goToJobDetails(jobId: number) {
-    this.router.navigate([`/job-details/${jobId}`]);
+    this.router.navigate(['/job-details', jobId]);
   }
 
   getUserId() {
@@ -96,6 +97,11 @@ export class JobListComponent {
     } else {
       console.warn('ID do usuário não encontrado no token.');
     }
+  }
+
+  goToApplicants(jobId: number, event: Event): void {
+    event.stopPropagation();
+    this.router.navigate(['/admin/jobs', jobId, 'candidates']);
   }
 
 }

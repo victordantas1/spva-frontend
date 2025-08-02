@@ -6,6 +6,8 @@ import {JobDetailComponent} from './job-detail/job-detail.component';
 import {ProfileComponent} from './profile/profile.component';
 import {authGuard} from '../auth.guard';
 import { JobFormComponent } from './job-form/job-form.component';
+import {adminGuard} from '../admin.guard';
+import {JobApplicantsComponent} from './job-applicants/job-applicants.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,9 +23,14 @@ export const routes: Routes = [
     component: JobFormComponent,
     canActivate: [authGuard]
   },
+  {
+    path: 'admin/jobs/:id/candidates',
+    component: JobApplicantsComponent,
+    canActivate: [adminGuard]
+  },
   { path: 'register', component: RegisterComponent },
   {path: 'profile/:id', canActivate: [authGuard], component: ProfileComponent },
-  {path: 'job-details/:id', canActivate: [authGuard],component: JobDetailComponent },
-  { path: '**', redirectTo: 'login' } // rota coringa
+  {path: 'job-details/:id', canActivate: [authGuard], component: JobDetailComponent },
+  { path: '**', redirectTo: 'login' }
 ];
 
