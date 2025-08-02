@@ -70,3 +70,40 @@ input {
   font-weight: bold;
   cursor: pointer;
 }
+
+.file-upload {
+  display: flex;
+  align-items: center;
+  border: 1px solid blueviolet;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+}
+
+.file-upload input[type="file"] {
+  display: none;
+}
+
+.file-label {
+  background-color: #f0e6ff;
+  color: blueviolet;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  border-right: 1px solid blueviolet;
+  white-space: nowrap;
+  margin: 0;
+  transition: background-color 0.2s;
+}
+
+.file-label:hover {
+  background-color: #e0d0ff;
+}
+
+.file-name {
+  padding: 0 1rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
