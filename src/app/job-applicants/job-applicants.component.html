@@ -5,6 +5,13 @@
       <h1>Candidatos</h1>
       <p *ngIf="job">Para a vaga: <strong>{{ job.title }}</strong></p>
     </div>
+    <button
+      class="recommend-btn"
+      (click)="getRecommendations()"
+      *ngIf="!isLoading && applicants.length > 0"
+      [disabled]="isRecommending">
+      {{ isRecommending ? 'Processando...' : 'Recomendar Melhores' }}
+    </button>
   </header>
 
   <div *ngIf="isLoading" class="loading">Carregando candidatos...</div>
@@ -17,6 +24,7 @@
         <th>Email</th>
         <th>Data da Candidatura</th>
         <th>Currículo</th>
+        <th *ngIf="recommendationsLoaded" class="score-header">Score</th>
       </tr>
       </thead>
       <tbody>
@@ -28,6 +36,9 @@
           <a [href]="'http://localhost:8000/' + applicant.resume_path" target="_blank" class="resume-link">
             Ver Currículo
           </a>
+        </td>
+        <td *ngIf="recommendationsLoaded">
+          <span class="score-badge">{{ applicant.score | percent:'1.0-2' }}</span>
         </td>
       </tr>
       </tbody>

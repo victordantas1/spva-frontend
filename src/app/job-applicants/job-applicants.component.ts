@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { CommonModule, Location } from '@angular/common';
 
 export interface Applicant {
@@ -10,6 +10,12 @@ export interface Applicant {
   email: string;
   application_date: string;
   resume_path: string;
+  score?: number;
+}
+
+export interface RecommendationResponse {
+  candidate: Applicant;
+  score: number;
 }
 
 export interface Job {
@@ -38,6 +44,8 @@ export class JobApplicantsComponent implements OnInit {
   job: Job | null = null;
   jobId: string | null = null;
   isLoading = true;
+  isRecommending = false;
+  recommendationsLoaded = false;
 
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
@@ -61,6 +69,44 @@ export class JobApplicantsComponent implements OnInit {
       .subscribe(data => {
         this.applicants = data;
         this.isLoading = false;
+      });
+  }
+
+  getRecommendations(): void {
+    if (!this.jobId || this.applicants.length === 0) {
+      return;
+    }
+
+    this.isRecommending = true;
+    const candidateIds = this.applicants.map(c => c.user_id);
+    const topK = this.applicants.length;
+
+    let params = new HttpParams()
+      .set('top_k', topK)
+      .appendAll({'candidates': candidateIds});
+
+    this.http.get<RecommendationResponse[]>(`http://localhost:8001/recommendation/${this.jobId}`, { params })
+      .subscribe({
+        next: (recommendations) => {
+          const scoreMap = new Map<number, number>();
+          recommendations.forEach(rec => {
+            scoreMap.set(rec.candidate.user_id, rec.score);
+          });
+
+          this.applicants.forEach(applicant => {
+            applicant.score = scoreMap.get(applicant.user_id);
+          });
+
+          this.applicants.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+
+          this.isRecommending = false;
+          this.recommendationsLoaded = true;
+        },
+        error: (err) => {
+          console.error('Erro ao buscar recomendações:', err);
+          alert('Não foi possível obter as recomendações.');
+          this.isRecommending = false;
+        }
       });
   }
 
