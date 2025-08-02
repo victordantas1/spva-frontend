@@ -12,6 +12,15 @@
     <div class="job-grid">
       @for (job of jobs; track job.job_id) {
         <div class="job-card-wrapper">
+          <div class="job-card" (click)="goToJobDetails(job.job_id)">
+            <h2 class="job-title">{{ job.position }}</h2>
+            <p class="company-name">Vct Inc.</p>
+            <p class="job-type">Technology</p>
+            <p class="location">📍 {{ job.category.toUpperCase() }}</p>
+            <div class="btn-wrapper">
+              <button class="apply-btn">Apply Now</button>
+            </div>
+          </div>
           <div class="admin-actions" *ngIf="isAdmin">
             <button class="view-btn" title="Ver Candidatos" (click)="goToApplicants(job.job_id, $event)">
               👥
@@ -22,15 +31,6 @@
             <button class="delete-btn" title="Deletar Vaga" (click)="deleteJob(job.job_id, $event)">
               &times;
             </button>
-          </div>
-          <div class="job-card" (click)="goToJobDetails(job.job_id)">
-            <h2 class="job-title">{{ job.position }}</h2>
-            <p class="company-name">Vct Inc.</p>
-            <p class="job-type">Technology</p>
-            <p class="location">📍 {{ job.category.toUpperCase() }}</p>
-            <div class="btn-wrapper">
-              <button class="apply-btn">Apply Now</button>
-            </div>
           </div>
         </div>
       }

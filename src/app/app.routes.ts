@@ -28,10 +28,9 @@ export const routes: Routes = [
     component: JobApplicantsComponent,
     canActivate: [adminGuard]
   },
-  { path: '**', redirectTo: '/jobs' },
   { path: 'register', component: RegisterComponent },
   {path: 'profile/:id', canActivate: [authGuard], component: ProfileComponent },
-  {path: 'job-details/:id', canActivate: [authGuard],component: JobDetailComponent },
+  {path: 'job-details/:id', canActivate: [authGuard], component: JobDetailComponent },
   { path: '**', redirectTo: 'login' }
 ];
 

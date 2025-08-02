@@ -5,6 +5,7 @@ import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-job-list',
+  standalone: true,
   imports: [
     NgIf
   ],
