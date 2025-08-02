@@ -1,0 +1,40 @@
+<div class="container">
+  <header class="header">
+    <button class="back-btn" (click)="goBack()" title="Voltar">‹</button>
+    <div class="header-content">
+      <h1>Candidatos</h1>
+      <p *ngIf="job">Para a vaga: <strong>{{ job.title }}</strong></p>
+    </div>
+  </header>
+
+  <div *ngIf="isLoading" class="loading">Carregando candidatos...</div>
+
+  <div *ngIf="!isLoading && applicants.length > 0" class="applicants-list">
+    <table>
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Data da Candidatura</th>
+        <th>Currículo</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let applicant of applicants">
+        <td>{{ applicant.first_name }} {{ applicant.last_name }}</td>
+        <td>{{ applicant.email }}</td>
+        <td>{{ applicant.application_date | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <a [href]="'http://localhost:8000/' + applicant.resume_path" target="_blank" class="resume-link">
+            Ver Currículo
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!isLoading && applicants.length === 0" class="no-applicants">
+    <p>Ainda não há candidatos para esta vaga.</p>
+  </div>
+</div>

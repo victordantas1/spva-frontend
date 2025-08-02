@@ -13,6 +13,9 @@
       @for (job of jobs; track job.job_id) {
         <div class="job-card-wrapper">
           <div class="admin-actions" *ngIf="isAdmin">
+            <button class="view-btn" title="Ver Candidatos" (click)="goToApplicants(job.job_id, $event)">
+              👥
+            </button>
             <button class="edit-btn" title="Editar Vaga" (click)="goToEditJob(job.job_id, $event)">
               ✏️
             </button>
@@ -20,7 +23,6 @@
               &times;
             </button>
           </div>
-
           <div class="job-card" (click)="goToJobDetails(job.job_id)">
             <h2 class="job-title">{{ job.position }}</h2>
             <p class="company-name">Vct Inc.</p>
