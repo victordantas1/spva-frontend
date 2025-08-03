@@ -1,3 +1,14 @@
+/* Paleta e Variáveis Globais */
+:root {
+  --primary-color: #4f46e5;
+  --primary-color-dark: #4338ca;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --bg-light: #f3f4f6;
+  --border-color: #e5e7eb;
+}
+
+/* Reset Básico e Estilos do Body */
 * {
   margin: 0;
   padding: 0;
@@ -5,9 +16,9 @@
 }
 
 body {
-  font-family: sans-serif;
-  background-color: #f3f4f6;
-  color: #1f2937;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-primary);
 }
 
 .container {
@@ -16,250 +27,191 @@ body {
   padding: 0 1rem;
 }
 
-.header {
-  background-color: #4338ca;
-  color: white;
+/* --- ESTILOS DO HEADER CORRIGIDOS E REFORÇADOS --- */
+header.header { /* ✅ Seletor mais específico: 'header.header' */
+  background-color: #4f46e5; /* ✅ !important para garantir a prioridade */
+  color: white !important; /* ✅ Garante que o texto seja branco */
   padding: 1.25rem 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.header-toolbar {
+header.header .header-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.header-toolbar h1 {
+header.header .header-toolbar h1 {
   font-size: 1.875rem;
   font-weight: bold;
-  margin: 0;
+  color: white;
 }
 
-.header-actions {
+header.header .header-actions {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
+/* Botões do Header */
+.header-actions .create-btn, .header-actions .profile-btn, .header-actions .logout-btn {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.header-actions .create-btn {
+  background-color: #10b981;
+  color: white;
+}
+.header-actions .create-btn:hover {
+  background-color: #059669;
+}
+
+.header-actions .profile-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+.header-actions .profile-btn:hover {
+  background-color: #6366f1;
+}
+
+.header-actions .logout-btn {
+  background-color: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  padding: calc(0.6rem - 2px) calc(1rem - 2px);
+}
+.header-actions .logout-btn:hover {
+  background-color: white;
+  color: var(--primary-color-dark);
+}
+
+/* --- Conteúdo Principal e Grid --- */
 .main-content {
-  max-width: 1120px;
-  margin: 0 auto;
   padding: 2.5rem 1rem;
 }
 
 .job-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
-@media (min-width: 640px) {
-  .job-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .job-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
+/* --- Card de Vaga Redesenhado --- */
 .job-card {
   background-color: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  padding: 1.25rem;
-}
-
-.job-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #4338ca;
-}
-
-.company-name,
-.job-type,
-.location {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin-top: 0.25rem;
-}
-
-.job-type {
-  margin-bottom: 0.5rem;
-}
-
-.btn-wrapper {
-  margin-top: 1rem;
-}
-
-.apply-btn {
-  background-color: #4f46e5;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.apply-btn:hover {
-  background-color: #6366f1;
-}
-
-.footer {
-  background-color: #e5e7eb;
-  text-align: center;
-  font-size: 0.875rem;
-  padding: 1rem;
-  color: #6b7280;
-}
-
-.profile-btn {
-  background-color: #4f46e5;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.profile-btn:hover {
-  background-color: #6366f1;
-}
-
-.create-btn {
-  background-color: #10b981;
-  color: white;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.create-btn:hover {
-  background-color: #059669;
-}
-
-.job-card-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.07);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow: hidden;
 }
 
-.job-card {
-  cursor: pointer;
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-.job-card-wrapper {
-  position: relative;
-}
-
+/* --- Botões de Admin --- */
 .admin-actions {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 0.75rem;
+  right: 0.75rem;
   z-index: 10;
   display: flex;
-  gap: 6px;
+  gap: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 4px;
+  border-radius: 99px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease-in-out;
 }
 
-.edit-btn,
-.delete-btn {
+.job-card:hover .admin-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.edit-btn, .delete-btn, .view-btn {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 0.8rem;
-  line-height: 24px;
-  text-align: center;
-  cursor: pointer;
-  padding: 0;
+  width: 28px;
+  height: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.edit-btn {
-  background-color: #007bff;
-}
-
-.edit-btn:hover {
-  background-color: #0056b3;
-}
-
-.delete-btn {
-  background-color: #dc3545;
-}
-
-.delete-btn:hover {
-  background-color: #c82333;
-}
-
-.job-card {
-  background-color: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  padding: 1.25rem;
   cursor: pointer;
-  position: relative;
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+.view-btn { background-color: #10b981; }
+.edit-btn { background-color: #007bff; }
+.delete-btn { background-color: #dc3545; }
+
+.view-btn:hover, .edit-btn:hover, .delete-btn:hover {
+  transform: scale(1.1);
+}
+
+/* --- Estrutura Interna do Card --- */
+.card-content {
+  padding: 1.25rem;
+  padding-top: 2rem;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.card-footer {
+  padding: 0 1.25rem 1.25rem;
+  margin-top: auto;
 }
 
 .job-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #4338ca;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
-.company-name,
-.job-type,
-.location {
+.company-name, .job-type, .location {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin-top: 0.25rem;
 }
 
-.job-type {
-  margin-bottom: 0.5rem;
-}
-
-.btn-wrapper {
-  margin-top: 1rem;
-}
-
 .apply-btn {
-  background-color: #4f46e5;
+  width: 100%;
+  background-color: var(--primary-color);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   border: none;
-  border-radius: 0.375rem;
+  border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s;
 }
 
 .apply-btn:hover {
-  background-color: #6366f1;
+  background-color: var(--primary-color-dark);
 }
 
-.logout-btn {
-  background-color: transparent;
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  padding: calc(0.5rem - 2px) calc(1rem - 2px);
-  border-radius: 0.375rem;
+/* --- Estilos do Footer --- */
+.footer {
+  background-color: var(--border-color);
+  text-align: center;
   font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-.logout-btn:hover {
-  background-color: white;
-  color: #4338ca;
+  padding: 1.5rem;
+  color: var(--text-secondary);
+  margin-top: 2rem;
 }
