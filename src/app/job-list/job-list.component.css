@@ -1,4 +1,3 @@
-/* Paleta e Variáveis Globais */
 :root {
   --primary-color: #4f46e5;
   --primary-color-dark: #4338ca;
@@ -8,7 +7,6 @@
   --border-color: #e5e7eb;
 }
 
-/* Reset Básico e Estilos do Body */
 * {
   margin: 0;
   padding: 0;
@@ -27,10 +25,9 @@ body {
   padding: 0 1rem;
 }
 
-/* --- ESTILOS DO HEADER CORRIGIDOS E REFORÇADOS --- */
-header.header { /* ✅ Seletor mais específico: 'header.header' */
-  background-color: #4f46e5; /* ✅ !important para garantir a prioridade */
-  color: white !important; /* ✅ Garante que o texto seja branco */
+header.header {
+  background-color: #4f46e5;
+  color: white !important;
   padding: 1.25rem 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -53,7 +50,6 @@ header.header .header-actions {
   gap: 1rem;
 }
 
-/* Botões do Header */
 .header-actions .create-btn, .header-actions .profile-btn, .header-actions .logout-btn {
   padding: 0.6rem 1rem;
   border: none;
@@ -92,7 +88,7 @@ header.header .header-actions {
   color: var(--primary-color-dark);
 }
 
-/* --- Conteúdo Principal e Grid --- */
+
 .main-content {
   padding: 2.5rem 1rem;
 }
@@ -103,7 +99,6 @@ header.header .header-actions {
   gap: 1.5rem;
 }
 
-/* --- Card de Vaga Redesenhado --- */
 .job-card {
   background-color: white;
   border-radius: 12px;
@@ -120,7 +115,6 @@ header.header .header-actions {
   box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-/* --- Botões de Admin --- */
 .admin-actions {
   position: absolute;
   top: 0.75rem;
@@ -163,7 +157,6 @@ header.header .header-actions {
   transform: scale(1.1);
 }
 
-/* --- Estrutura Interna do Card --- */
 .card-content {
   padding: 1.25rem;
   padding-top: 2rem;
@@ -206,7 +199,6 @@ header.header .header-actions {
   background-color: var(--primary-color-dark);
 }
 
-/* --- Estilos do Footer --- */
 .footer {
   background-color: var(--border-color);
   text-align: center;
