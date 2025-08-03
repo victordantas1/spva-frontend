@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {NgIf} from '@angular/common';
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'app-job-list',
@@ -19,6 +20,7 @@ export class JobListComponent {
 
   private http = inject(HttpClient);
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   constructor() {
     this.fetchJobs();
@@ -102,6 +104,10 @@ export class JobListComponent {
   goToApplicants(jobId: number, event: Event): void {
     event.stopPropagation();
     this.router.navigate(['/admin/jobs', jobId, 'candidates']);
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
 }
