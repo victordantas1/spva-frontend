@@ -25,7 +25,6 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const formValue = this.loginForm.value;
 
-      // ✅ Payload da requisição ATUALIZADO
       const body = new HttpParams()
         .set('username', formValue.username)
         .set('password', formValue.password)

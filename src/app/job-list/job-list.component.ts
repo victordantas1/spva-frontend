@@ -26,11 +26,13 @@ export class JobListComponent {
     this.fetchJobs();
   }
 
+  ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin();
+  }
+
   fetchJobs() {
     const token = this.getTokenFromCookies();
-
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
     // @ts-ignore
     this.http.get<any[]>('http://localhost:8000/jobs', { headers, responseType: 'json' })
       .subscribe({
