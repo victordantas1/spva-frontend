@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  spva-frontend:
+    build: .
+    container_name: spva-frontend
+    ports:
+      - "4200:80"
+
+    restart: unless-stopped
