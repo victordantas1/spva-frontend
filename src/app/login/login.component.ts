@@ -27,8 +27,7 @@ export class LoginComponent {
 
       const body = new HttpParams()
         .set('username', formValue.username)
-        .set('password', formValue.password)
-        .set('scope', 'candidate');
+        .set('password', formValue.password);
 
       const headers = new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -40,9 +39,7 @@ export class LoginComponent {
         { headers }
       ).subscribe({
         next: (response) => {
-          document.cookie = `token=${response.access_token}; path=/; max-age=86400`;
           localStorage.setItem('token', response.access_token);
-          console.log('Login realizado com sucesso com o escopo solicitado!');
           this.router.navigate(['/jobs']);
         },
         error: (err) => {
